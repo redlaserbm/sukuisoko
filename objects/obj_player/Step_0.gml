@@ -55,8 +55,8 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 			case 4:
 				// In this case, the sponge can always be moved. 
 				// We will simply move the sponge to the new location.
-				sponge.x = sponge.x + x_vec*GRID_SIZE;
-				sponge.y = sponge.y + y_vec*GRID_SIZE;
+				sponge.direction = direction;
+				sponge.speed = player_speed;
 				break;
 			case 3:
 				// Are we pushing from the flat or crooked side?
@@ -107,8 +107,8 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 						sponge.state_arr = scr_squish(sponge.state_arr, direction);
 					} else if (not obstructed) {
 						// Move the sponge
-						sponge.x = sponge.x + 2*push_x;
-						sponge.y = sponge.y + 2*push_y;
+						sponge.direction = direction;
+						sponge.speed = player_speed;
 					} else if (obstructed and not long_edge) {
 						// We cannot move the sponge
 						speed = 0;
@@ -149,8 +149,8 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 					// If we get to this point and the speed is not zero, then it's possible to move the box. 
 					// We can simply move the sponge to the new location and allow its own collision logic to update its state array after the fact.
 					if speed != 0 {
-						sponge.x = sponge.x + x_vec*GRID_SIZE
-						sponge.y = sponge.y + y_vec*GRID_SIZE
+						sponge.direction = direction;
+						sponge.speed = player_speed;
 					}
 				} else {
 					// This *shouldn't* happen. Log a warning message in the console if it does.
@@ -173,9 +173,8 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 			case 4:
 				// Remember, at this point we already know the player can move. 4-blocks can *always* be pulled, 
 				// we just need to know if the pull will be obstructed or not
-				pull_sponge.x = pull_sponge.x + 2*push_x;
-				pull_sponge.y = pull_sponge.y + 2*push_y;
-				break;
+				pull_sponge.direction = direction;
+				pull_sponge.speed = player_speed;
 			case 3:
 				break;
 			case 2:

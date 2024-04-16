@@ -10,7 +10,8 @@ state_arr = [
 // Tracks the area of the sponge 
 state_var = 4;
 
-// Depending on the starting sprite, we might need to adjust this
+old_x = x;
+old_y = y;
 
 
 
