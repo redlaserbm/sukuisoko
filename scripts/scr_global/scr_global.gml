@@ -28,3 +28,43 @@ function scr_convert(arr2d) {
 	}
 	return val;
 }
+
+function scr_side_type(state_arr, dir) {
+	// Returns 1 if we're pushing a crooked edge and a 2 if we're pushing a flat edge
+	// Return -1 in case of bad argument...
+	var val = 0;
+	if (dir == 0) {
+		val = state_arr[0][0] + state_arr[1][0];
+	} else if (dir == 90) {
+		val = state_arr[1][0] + state_arr[1][1];
+	} else if (dir == 180) {
+		val = state_arr[0][1] + state_arr[1][1];
+	} else if (dir == 270) {
+		val = state_arr[0][0] + state_arr[0][1];
+	} else {
+		val = -1;
+	}
+	return val;
+}
+
+function scr_squish(state_arr, dir) {
+	// Helper function for handling obstructed movement of 3-blocks	
+	// Returns a full state array in case of bad argument
+	if (dir == 0) {
+		state_arr[0][0] = 0;
+		state_arr[1][0] = 0;	
+	} else if (dir == 90) {
+		state_arr[1][0] = 0; 
+		state_arr[1][1] = 0;
+	} else if (dir == 180) {
+		state_arr[0][1] = 0;
+		state_arr[1][1] = 0;
+	} else if (dir == 270) {
+		state_arr[0][0] = 0;
+		state_arr[0][1] = 0;
+	} else {
+		state_arr = [[1,1],[1,1]];
+	}
+	
+	return state_arr
+}
