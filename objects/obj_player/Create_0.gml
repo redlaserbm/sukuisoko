@@ -5,3 +5,6 @@ player_speed = 2;
 
 old_x = x;
 old_y = y;
+
+sponge = noone;
+pull_sponge = noone;

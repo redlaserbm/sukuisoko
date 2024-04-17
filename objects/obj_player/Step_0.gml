@@ -6,6 +6,9 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 	old_x = x
 	old_y = y
 	
+	sponge = noone;
+	pull_sponge = noone;
+	
 	var x_vec = keyboard_check(vk_right) - keyboard_check(vk_left);
 	var y_vec = keyboard_check(vk_down) - keyboard_check(vk_up);
 	var pull = keyboard_check(ord("Z"));
@@ -47,10 +50,10 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 	
 	// Push check. If the player is moving to where a sponge is...
 	// see if they can push the sponge and move into the empty spot.
-	if instance_place(x_check, y_check, obj_sponge) != noone and speed != 0 {
+	if position_meeting(x_check, y_check, obj_sponge) and speed != 0 {
 		// The player is moving to where a sponge is located.
 		// At this point, we need to decide if the the sponge can be moved
-		var sponge = instance_place(x_check, y_check, obj_sponge)
+		sponge = instance_position(x_check, y_check, obj_sponge)
 		switch (sponge.state_var) {
 			case 4:
 				// In this case, the sponge can always be moved. 
@@ -158,7 +161,20 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 				}
 				break;
 			case 2:
-				// TODO
+				var check_x = sponge.x + 2*push_x;
+				var check_y = sponge.y + 2*push_y;
+				var obstructed = false;
+				with sponge {
+					if place_meeting(check_x,check_y,obj_wall) or (place_meeting(check_x,check_y,obj_sponge) and not place_meeting(check_x,check_y,sponge)) {
+						obstructed = true;	
+					}
+				}
+				if obstructed {
+					speed = 0;	
+				} else {
+					sponge.direction = direction;
+					sponge.speed = player_speed;
+				}
 				break;
 		}
 		
@@ -168,16 +184,125 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 	x_check = x - x_vec*GRID_SIZE;
 	y_check = y - y_vec*GRID_SIZE;
 	if position_meeting(x_check, y_check, obj_sponge) and speed != 0 and pull {
-		var pull_sponge = instance_position(x_check, y_check, obj_sponge);
+		pull_sponge = instance_position(x_check, y_check, obj_sponge);
 		switch (pull_sponge.state_var) {
 			case 4:
 				// Remember, at this point we already know the player can move. 4-blocks can *always* be pulled, 
 				// we just need to know if the pull will be obstructed or not
 				pull_sponge.direction = direction;
 				pull_sponge.speed = player_speed;
+				break;
 			case 3:
+				// Are we puling from the flat side or the crooked side?
+				var base_x = pull_sponge.x + push_x;
+				var base_y = pull_sponge.y + push_y;
+				
+				var p1_x = base_x + search_x;
+				var p1_y = base_y + search_y;
+				
+				var p2_x = base_x - search_x;
+				var p2_y = base_y - search_y;
+				
+				var search_arr = [[p1_x,p1_y],[p2_x,p2_y]];
+				
+				var flat = true;
+				for (var i = 0; i < array_length(search_arr); i++) {
+					if not position_meeting(search_arr[i][0],search_arr[i][1],pull_sponge) {
+						flat = false;
+					}
+				}
+				
+				if flat {
+					// Is the pull obstructed? If so, don't perform it.	
+					base_x = pull_sponge.x + 3*push_x;
+					base_y = pull_sponge.y + 3*push_y;
+					
+					p1_x = base_x + search_x;
+					p1_y = base_y + search_y;
+				
+					p2_x = base_x - search_x;
+					p2_y = base_y - search_y;
+				
+					search_arr = [[p1_x,p1_y],[p2_x,p2_y]];
+					var obstructed = false
+					for (var i = 0; i < array_length(search_arr); i++) {
+						if position_meeting(search_arr[i][0],search_arr[i][1], obj_wall) or (position_meeting(search_arr[i][0],search_arr[i][1], obj_sponge) and not position_meeting(search_arr[i][0],search_arr[i][1], pull_sponge)) {
+							obstructed = true;
+							break;
+						}
+					}
+					
+					if obstructed {
+						speed = 0;	
+					} else {
+						pull_sponge.direction = direction;
+						pull_sponge.speed = player_speed;	
+					}
+				} else {
+					// Are we pulling the short end or the long end?
+					var check_x = x - 4*push_x;
+					var check_y = y - 4*push_y;
+					
+					var long_end = false;
+					if position_meeting(check_x, check_y, pull_sponge) {
+						long_end = true;
+					}
+					
+					if not long_end {
+						pull_sponge.state_arr = [[1,1],[1,1]];
+					} else {
+						// Check for an obstruction before pulling...
+						base_x = pull_sponge.x + push_x;
+						base_y = pull_sponge.y + push_y;
+					
+						p1_x = base_x + search_x;
+						p1_y = base_y + search_y;
+				
+						p2_x = base_x - search_x;
+						p2_y = base_y - search_y;
+				
+						search_arr = [[p1_x,p1_y],[p2_x,p2_y]];
+						var obstructed = false
+						for (var i = 0; i < array_length(search_arr); i++) {
+							if position_meeting(search_arr[i][0],search_arr[i][1], obj_wall) or (position_meeting(search_arr[i][0],search_arr[i][1], obj_sponge) and not position_meeting(search_arr[i][0],search_arr[i][1], pull_sponge)) {
+								obstructed = true;
+								break;
+							}
+						}
+						if obstructed {
+							speed = 0;	
+						} else {
+							pull_sponge.direction = direction;
+							pull_sponge.speed = player_speed;	
+						}
+						
+					}
+				}
+				
 				break;
 			case 2:
+				// Are we pulling the long end or the short end?
+				x_check = x - 4*push_x;
+				y_check = y - 4*push_y;
+				var long_edge = false;
+				if position_meeting(x_check, y_check, pull_sponge) {
+					long_edge = true;
+				}
+				if long_edge {
+					pull_sponge.direction = direction;
+					pull_sponge.speed = player_speed;
+				} else {
+					if (direction == 0 or direction == 270) {
+						pull_sponge.state_arr = [[1,1],[1,1]];
+					} else if (direction == 90) {
+						pull_sponge.y = pull_sponge.y - GRID_SIZE;
+						pull_sponge.state_arr = [[1,1],[1,1]];
+					} else if (direction == 180) {
+						pull_sponge.x = pull_sponge.x - GRID_SIZE;
+						pull_sponge.state_arr = [[1,1],[1,1]];	
+					}
+						
+				}
 				break;
 		}
 	}

@@ -68,3 +68,18 @@ function scr_squish(state_arr, dir) {
 	
 	return state_arr
 }
+
+function scr_collision(px,py) {
+	if position_meeting(px, py, obj_wall) {
+		return true;	
+	} else {
+		var sponge_list = ds_list_create();
+		var sponge_ct = instance_position_list(px, py, obj_sponge, sponge_list, false);
+		
+		if sponge_ct > 1 and (self.id == obj_player.pull_sponge or self.id == obj_player.sponge) {
+			return true;	
+		}
+		ds_list_destroy(sponge_list);
+		return false;
+	}	
+}

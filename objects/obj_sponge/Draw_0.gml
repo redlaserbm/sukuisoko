@@ -37,7 +37,7 @@ switch(val) {
 		ind = 5;
 		break;
 }
-
+image_index = ind;
 draw_sprite(spr_sponge, ind, x, y);
 
 
