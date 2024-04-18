@@ -16,6 +16,15 @@ for (var i = 0; i < instance_number(obj_sponge); ++i)
 	}
 }
 
+for (var i = 0; i < instance_number(obj_goal); ++i)
+{
+    var goal = instance_find(obj_goal,i);
+	if not goal.collide {
+		beaten = false;
+		break;
+	}
+}
+
 if beaten {
 	room_goto_next();	
 }

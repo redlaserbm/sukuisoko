@@ -72,7 +72,7 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 					var p1_y = y + 2*search_y;
 					
 					var p2_x = x - 2*search_x;
-					var p2_y = x - 2*search_y;
+					var p2_y = y - 2*search_y;
 					
 					var search_arr = [[p1_x,p1_y],[p2_x,p2_y]];
 					
