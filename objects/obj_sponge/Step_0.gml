@@ -26,8 +26,20 @@ if array_equals(state_arr, [[0,0],[1,1]]) {
 	state_arr = [[1,1],[0,0]];
 }
 
-
-
+// Win condition checking 
+suited = true;
+for (var i = 0; i < 2; i++) {
+	for (var j = 0; j < 2; j++) {
+		if (state_arr[j][i] == 1) {
+			var adj_x = 2*i - 1;
+			var adj_y = 2*j - 1;
+			
+			if not position_meeting(x + adj_x*GRID_SIZE/2,y + adj_y*GRID_SIZE/2, obj_goal) {
+				suited = false;
+			}
+		}
+	}
+}
 
 
 

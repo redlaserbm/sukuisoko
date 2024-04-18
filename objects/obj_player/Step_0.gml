@@ -165,7 +165,7 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
 				var check_y = sponge.y + 2*push_y;
 				var obstructed = false;
 				with sponge {
-					if place_meeting(check_x,check_y,obj_wall) or (place_meeting(check_x,check_y,obj_sponge) and not place_meeting(check_x,check_y,sponge)) {
+					if place_meeting(check_x,check_y,obj_wall) or (place_meeting(check_x,check_y,obj_sponge) and not place_meeting(check_x,check_y,self)) {
 						obstructed = true;	
 					}
 				}
