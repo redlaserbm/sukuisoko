@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+depth = -2;
+
 // Default state array
 state_arr = [
 	[1,1],
