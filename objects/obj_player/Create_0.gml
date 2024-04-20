@@ -3,6 +3,8 @@
 
 player_speed = 2;
 
+depth = -2;
+
 old_x = x;
 old_y = y;
 
