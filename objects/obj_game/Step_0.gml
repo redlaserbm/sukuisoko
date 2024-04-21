@@ -27,14 +27,23 @@ for (var i = 0; i < instance_number(obj_goal); ++i)
 
 if beaten {
 	room_goto_next();	
+	room_number++;
+} else {
+	// Debug control
+	if keyboard_check_pressed(ord("A")) and (room_exists(room_previous(room))) {
+		room_goto_previous();
+		room_number = room_number - 1;
+	}
+	if keyboard_check_pressed(ord("D")) and (room_exists(room_next(room))) {
+		room_goto_next();
+		room_number = room_number + 1;
+	}
 }
 
-// Debug control
-if keyboard_check_pressed(ord("A")) {
-	room_goto_previous();
-}
-if keyboard_check_pressed(ord("D")) {
-	room_goto_next();
+// Logic for determining whether to display textboxes or not...
+if (room == rm_tutorial) and not flags.intro {
+	scr_textbox_create("intro");
+	flags.intro = true;
 }
 
 

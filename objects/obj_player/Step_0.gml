@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 // Only update player movement when the player is on the grid
-if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) {
+if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and (instance_number(obj_textbox) <= 0) {
 	old_x = x
 	old_y = y
 	

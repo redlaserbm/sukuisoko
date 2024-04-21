@@ -1,0 +1,13 @@
+{
+  "$GMScript":"",
+  "%Name":"scr_draw_options",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_draw_options",
+  "parent":{
+    "name":"Textbox",
+    "path":"folders/Scripts/Textbox.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
