@@ -2,7 +2,13 @@
 // You can write your code in this editor
 
 // Only update player movement when the player is on the grid
-if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and (instance_number(obj_textbox) <= 0) {
+var _can_move = true;
+if (instance_number(obj_textbox) + instance_number(obj_level_complete) > 0) {
+	_can_move = false;
+	speed = 0;
+}
+
+if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move {
 	old_x = x
 	old_y = y
 	

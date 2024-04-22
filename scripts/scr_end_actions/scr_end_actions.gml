@@ -33,7 +33,9 @@ function scr_goto(_name){
 function scr_room_goto(_name){
 	room_name = _name;
 	var _method = function() {
-		room_goto(room_name);
+		if room_exists(room_name) {
+			room_goto(room_name);
+		}
 	}
 	array_push(end_action, _method);
 }

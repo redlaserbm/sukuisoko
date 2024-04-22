@@ -1,6 +1,10 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+if !init_setup {
+	init_setup = true;
+}
+
 if keyboard_check_pressed(ord("R")) {
 	room_restart();	
 }
@@ -26,24 +30,46 @@ for (var i = 0; i < instance_number(obj_goal); ++i)
 }
 
 if beaten {
-	room_goto_next();	
-	room_number++;
+	if instance_number(obj_level_complete) < 1 {
+		audio_play_sound(snd_success,0,false, 0.25);
+		instance_create_depth(0,0,-16000,obj_level_complete);
+	}
 } else {
 	// Debug control
 	if keyboard_check_pressed(ord("A")) and (room_exists(room_previous(room))) {
+		for (var _i = 0; _i < instance_number(obj_textbox); _i++) {
+			var _textbox = instance_find(obj_textbox, _i);
+			_textbox.force_destroy = true;
+		}
+		instance_destroy(obj_textbox);
 		room_goto_previous();
 		room_number = room_number - 1;
 	}
 	if keyboard_check_pressed(ord("D")) and (room_exists(room_next(room))) {
+		for (var _i = 0; _i < instance_number(obj_textbox); _i++) {
+			var _textbox = instance_find(obj_textbox, _i);
+			_textbox.force_destroy = true;
+		}
+		instance_destroy(obj_textbox);
 		room_goto_next();
 		room_number = room_number + 1;
 	}
 }
 
 // Logic for determining whether to display textboxes or not...
-if (room == rm_tutorial) and not flags.intro {
+if (room == rm_tut1) and not flags.intro {
 	scr_textbox_create("intro");
 	flags.intro = true;
+}
+
+if (room == rm_tut2) and flags.tutorial and not flags.tut2 {
+	scr_textbox_create("pulling");
+	flags.tut2 = true;
+}
+
+if (room == rm_tut3) and flags.tutorial and not flags.tut3 {
+	scr_textbox_create("squishing");
+	flags.tut3 = true;
 }
 
 

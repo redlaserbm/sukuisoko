@@ -21,6 +21,17 @@ function scr_dialogue(_text_id){
 				scr_text("Cool, uhh.... good luck broski.", spr_squish);
 				obj_game.flags.tutorial = false; // Disables all further tutorial dialogue.
 				break;
+				
+		case "pulling":
+			scr_text("Sponges like me can be pushed *and* pulled! When moving, hold the \"Z\" key to pull a sponge. Try pulling the sponge towards the power tiles.", spr_squish);
+			break;
+			
+		case "squishing":
+			scr_text("Ok, one last thing. Sponges like me are quite squishy! Try pushing sponges into walls or other sponges to squish them and make them smaller. If you need to, you can *pull* sponges back into their original shape.", spr_squish);
+			break;
+			
+		case "level_complete":
+			scr_text("Level complete!", noone);
 			
 		
 		// CUTSCENE DIALOGUE 

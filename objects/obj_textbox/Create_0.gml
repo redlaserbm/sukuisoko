@@ -24,12 +24,12 @@ nameplate_y_offset = textbox_y_offset - nameplate_height;
 invisible_offset = 10000;
 
 text_border_x = 24;
-text_border_y = 24;
+text_border_y = 18;
 
 nameplate_border_y = 14;
 
 option_border_x = 24; // I get it, this is annoying, but I'm trying to make the display look nice, okay?
-option_border_y = 24;
+option_border_y = 18;
 
 portrait_border_x = 16;
 portrait_border_y = 8;
@@ -37,7 +37,7 @@ portrait_border_y = 8;
 // This is so that we don't try to draw the text on top of the portrait
 portrait_width = 0;
 
-line_sep = 18; // Admittedly I'm not sure how to set this number, this is just a good guess rn...
+line_sep = 24; // Admittedly I'm not sure how to set this number, this is just a good guess rn...
 line_width = textbox_width - text_border_x - text_border_y - 0;
 
 // Set the sprite to use for the textbox, as well as the image from that sprite to use and how fast it should animate...
@@ -91,11 +91,6 @@ skip_key = false;
 up_down_input = false;
 
 timer = 0;
-
-// When moving the portrait to make room for dialogue options when they appear on screen...
-// This timer governs how long (in frames) that transition takes
-portrait_options_transition_duration = 15;
-portrait_options_transition_timer = 0;
 
 alpha = 0.85;
 
