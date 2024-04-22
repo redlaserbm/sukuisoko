@@ -5,10 +5,6 @@ if !init_setup {
 	init_setup = true;
 }
 
-if keyboard_check_pressed(ord("R")) {
-	room_restart();	
-}
-
 // Check whether the level has been beaten
 var beaten = true;
 for (var i = 0; i < instance_number(obj_sponge); ++i)
@@ -56,6 +52,10 @@ if beaten {
 	}
 }
 
+if keyboard_check_pressed(ord("R")) {
+	room_restart();	
+}
+
 // Logic for determining whether to display textboxes or not...
 if (room == rm_tut1) and not flags.intro {
 	scr_textbox_create("intro");
@@ -72,6 +72,26 @@ if (room == rm_tut3) and flags.tutorial and not flags.tut3 {
 	flags.tut3 = true;
 }
 
+// Undo feature
+if (obj_player.current_state > 0 and keyboard_check_pressed(ord("X"))) {
+	var _obj_arr = [obj_player, obj_sponge];
+	for (var _i = 0; _i < array_length(_obj_arr); _i++) {
+		for (var _j = 0; _j < instance_number(_obj_arr[_i]); _j++) {
+			var _obj = instance_find(_obj_arr[_i], _j);
+			
+			var _state = scr_revert_state(_obj);
+		
+			// For both object types, revert the position
+			_obj.x = _state.xpos;
+			_obj.y = _state.ypos;
+			
+			if (_i == 1) {
+				// If the object IS a sponge
+				_obj.state_arr = _state.arr;
+			}
+		}
+	}
+}
 
 
 

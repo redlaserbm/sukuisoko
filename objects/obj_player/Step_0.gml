@@ -15,6 +15,9 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 	sponge = noone;
 	pull_sponge = noone;
 	
+	var _push_arr = [[-1,-1],[-1,-1]];
+	var _pull_arr = [[-1,-1],[-1,-1]];
+	
 	var x_vec = keyboard_check(vk_right) - keyboard_check(vk_left);
 	var y_vec = keyboard_check(vk_down) - keyboard_check(vk_up);
 	var pull = keyboard_check(ord("Z"));
@@ -59,7 +62,10 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 	if position_meeting(x_check, y_check, obj_sponge) and speed != 0 {
 		// The player is moving to where a sponge is located.
 		// At this point, we need to decide if the the sponge can be moved
-		sponge = instance_position(x_check, y_check, obj_sponge)
+		sponge = instance_position(x_check, y_check, obj_sponge);
+		array_copy(_push_arr[0], 0, sponge.state_arr[0], 0, 2);
+		array_copy(_push_arr[1], 0, sponge.state_arr[1], 0, 2);
+		
 		switch (sponge.state_var) {
 			case 4:
 				// In this case, the sponge can always be moved. 
@@ -191,6 +197,8 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 	y_check = y - y_vec*GRID_SIZE;
 	if position_meeting(x_check, y_check, obj_sponge) and speed != 0 and pull {
 		pull_sponge = instance_position(x_check, y_check, obj_sponge);
+		array_copy(_pull_arr[0], 0, pull_sponge.state_arr[0], 0, 2);
+		array_copy(_pull_arr[1], 0, pull_sponge.state_arr[1], 0, 2);
 		switch (pull_sponge.state_var) {
 			case 4:
 				// Remember, at this point we already know the player can move. 4-blocks can *always* be pulled, 
@@ -310,6 +318,38 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 						
 				}
 				break;
+		}
+	}
+	
+	// UPDATING STATE ARRAYS
+	if speed != 0 {
+		// Update the player state
+		var _state = {
+			xpos : x,
+			ypos : y
+		};
+		scr_update_state(self, _state);
+		
+		// Update the states of all the sponges
+		for (var _i = 0; _i < instance_number(obj_sponge); _i++) {
+			var _sponge = instance_find(obj_sponge, _i);
+			var _state_arr = [[-1,-1],[-1,-1]];
+			if _sponge == sponge {
+				_state_arr = _push_arr;	
+			} else if _sponge == pull_sponge {
+				_state_arr = _pull_arr;		
+			} else {
+				array_copy(_state_arr[0], 0, _sponge.state_arr[0], 0, 2);
+				array_copy(_state_arr[1], 0, _sponge.state_arr[1], 0, 2);
+			}
+			with _sponge {
+				_state = {
+					xpos: x,
+					ypos: y,
+					arr: _state_arr
+				};
+				scr_update_state(self, _state);	
+			}
 		}
 	}
 	

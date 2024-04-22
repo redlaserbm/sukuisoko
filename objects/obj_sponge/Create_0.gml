@@ -50,6 +50,14 @@ old_y = y;
 // Tracks whether all portions of the sponge lie on obj_goal or not
 suited = false;
 
+current_state = 0;
+state = {
+	xpos : x,
+	ypos : y,
+	arr: state_arr
+}
+scr_update_state(self, state);
+
 
 
 
