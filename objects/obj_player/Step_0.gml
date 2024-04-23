@@ -9,8 +9,8 @@ if (instance_number(obj_textbox) + instance_number(obj_level_complete) > 0) {
 }
 
 if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move {
-	old_x = x
-	old_y = y
+	old_x = x;
+	old_y = y;
 	
 	sponge = noone;
 	pull_sponge = noone;

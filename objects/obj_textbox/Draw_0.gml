@@ -184,6 +184,12 @@ if obj_game.bg_current == obj_game.bg_new {
 			
 		}
 	}
+	
+	// ACCEPT CURSOR DISPLAY
+	// When text is finished displaying for a text prompt, I'll display spr_cursor so that the player knows.
+	if draw_char >= text_length[page] and (obj_game.timer % 30 < 10) {
+		draw_sprite_ext(spr_cursor, 0, _textbox_x + textbox_x_offset + textbox_width - 32, _textbox_y + textbox_y_offset + textbox_height - 32 + invisible_offset, 1, 1, 0, c_white, alpha);
+	}
 }
 
 
