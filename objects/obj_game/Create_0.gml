@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-room_number = 0;
+room_number = 1;
 
 // Flags
 flags = {
@@ -24,3 +24,4 @@ bg_music = noone;
 init_setup = false;
 
 alarm[0] = 60;
+timer = 0;

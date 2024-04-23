@@ -86,8 +86,15 @@ if obj_game.bg_current == obj_game.bg_new {
 	var	_portrait_y_target = 0 + invisible_offset;
 	
 	// Draw the character that is speaking
+	
+	// If that character is squish, we'll have them float up and down a bit
+	var _float = 0;
+	if portrait[page] != noone and portrait[page] == spr_squish {
+		_float = 10*sin(2*pi*(obj_game.timer/240));
+	}
+	
 	if portrait[page] != noone {
-			draw_sprite_ext(portrait[page], image[page], 0, invisible_offset, 0.5, 0.5, 0, c_white, 1);	
+			draw_sprite_ext(portrait[page], image[page], 640 - 175, 175 + _float + invisible_offset, 1.0, 1.0, 0, c_white, 1);	
 	}
 	
 	// Options

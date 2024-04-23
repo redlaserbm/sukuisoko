@@ -3,14 +3,14 @@
 depth = -15000;
 
 textbox_width = 640;
-textbox_height = 128;
+textbox_height = 112;
 
 option_width = 0;
 option_height = 80;
 
 // Unlike in that tutorial, we need separate variables for the x and y borders
 textbox_x_offset = 0;
-textbox_y_offset = 352;
+textbox_y_offset = 368;
 
 nameplate_x_offset = 0;
 
@@ -24,7 +24,7 @@ nameplate_y_offset = textbox_y_offset - nameplate_height;
 invisible_offset = 10000;
 
 text_border_x = 24;
-text_border_y = 18;
+text_border_y = 21;
 
 nameplate_border_y = 14;
 

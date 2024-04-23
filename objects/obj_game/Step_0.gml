@@ -93,6 +93,8 @@ if (obj_player.current_state > 0 and keyboard_check_pressed(ord("X"))) and (inst
 	}
 }
 
+timer += 1;
+
 
 
 
