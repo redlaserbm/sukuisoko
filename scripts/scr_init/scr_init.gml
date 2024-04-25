@@ -10,4 +10,4 @@ audio_sound_loop_start(snd_think, 21.333);
 max_states = 50;
 
 // Allows for skipping between levels
-dev_mode = false;
+dev_mode = true;

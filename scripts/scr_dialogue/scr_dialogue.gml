@@ -28,7 +28,7 @@ function scr_dialogue(_text_id){
 			
 		case "squishing":
 			scr_text("Ok, one last thing. Sponges like me are quite squishy! Try pushing sponges into walls or other sponges to squish them and make them smaller. If you need to, you can *pull* sponges back into their original shape.", spr_squish);
-			scr_text("If you make a mistake, you can undo your mistake with the \"X\" key. Pretty cool, right?", spr_squish);
+			scr_text("If you make a mistake, you can undo your mistake with the \"X\" key. If you get lost and want to restart the level, press the \"R\" key. That's all I have to say, good luck!", spr_squish);
 			break;
 			
 		case "level_complete":

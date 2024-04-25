@@ -12,6 +12,9 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 	old_x = x;
 	old_y = y;
 	
+	var _x_adjust = 0;
+	var _y_adjust = 0;
+	
 	sponge = noone;
 	pull_sponge = noone;
 	
@@ -311,9 +314,11 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 					} else if (direction == 90) {
 						pull_sponge.y = pull_sponge.y - GRID_SIZE;
 						pull_sponge.state_arr = [[1,1],[1,1]];
+						_y_adjust = GRID_SIZE;
 					} else if (direction == 180) {
 						pull_sponge.x = pull_sponge.x - GRID_SIZE;
 						pull_sponge.state_arr = [[1,1],[1,1]];	
+						_x_adjust = GRID_SIZE;
 					}
 						
 				}
@@ -348,6 +353,10 @@ if ((x - old_x) % GRID_SIZE == 0 and (y - old_y) % GRID_SIZE == 0) and _can_move
 					ypos: y,
 					arr: _state_arr
 				};
+				if id == obj_player.pull_sponge {
+					_state.xpos = x + _x_adjust;
+					_state.ypos = y + _y_adjust;
+				}
 				scr_update_state(self, _state);	
 			}
 		}
