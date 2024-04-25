@@ -25,6 +25,10 @@ for (var i = 0; i < instance_number(obj_goal); ++i)
 	}
 }
 
+if room == rm_final {
+	beaten = false;	
+}
+
 if beaten {
 	if instance_number(obj_level_complete) < 1 {
 		audio_play_sound(snd_success,0,false, 0.25);
@@ -32,23 +36,25 @@ if beaten {
 	}
 } else {
 	// Debug control
-	if keyboard_check_pressed(ord("A")) and (room_exists(room_previous(room))) {
-		for (var _i = 0; _i < instance_number(obj_textbox); _i++) {
-			var _textbox = instance_find(obj_textbox, _i);
-			_textbox.force_destroy = true;
+	if global.dev_mode {
+		if keyboard_check_pressed(ord("A")) and (room_exists(room_previous(room))) {
+			for (var _i = 0; _i < instance_number(obj_textbox); _i++) {
+				var _textbox = instance_find(obj_textbox, _i);
+				_textbox.force_destroy = true;
+			}
+			instance_destroy(obj_textbox);
+			room_goto_previous();
+			room_number = room_number - 1;
 		}
-		instance_destroy(obj_textbox);
-		room_goto_previous();
-		room_number = room_number - 1;
-	}
-	if keyboard_check_pressed(ord("D")) and (room_exists(room_next(room))) {
-		for (var _i = 0; _i < instance_number(obj_textbox); _i++) {
-			var _textbox = instance_find(obj_textbox, _i);
-			_textbox.force_destroy = true;
+		if keyboard_check_pressed(ord("D")) and (room_exists(room_next(room))) {
+			for (var _i = 0; _i < instance_number(obj_textbox); _i++) {
+				var _textbox = instance_find(obj_textbox, _i);
+				_textbox.force_destroy = true;
+			}
+			instance_destroy(obj_textbox);
+			room_goto_next();
+			room_number = room_number + 1;
 		}
-		instance_destroy(obj_textbox);
-		room_goto_next();
-		room_number = room_number + 1;
 	}
 }
 
@@ -73,7 +79,7 @@ if (room == rm_tut3) and flags.tutorial and not flags.tut3 {
 }
 
 // Undo feature
-if (obj_player.current_state > 0 and keyboard_check_pressed(ord("X"))) and (instance_number(obj_level_complete) < 1) {
+if room != rm_final and (obj_player.current_state > 0 and keyboard_check_pressed(ord("X"))) and (instance_number(obj_level_complete) < 1) and obj_player.speed == 0 {
 	var _obj_arr = [obj_player, obj_sponge];
 	for (var _i = 0; _i < array_length(_obj_arr); _i++) {
 		for (var _j = 0; _j < instance_number(_obj_arr[_i]); _j++) {
@@ -93,7 +99,12 @@ if (obj_player.current_state > 0 and keyboard_check_pressed(ord("X"))) and (inst
 	}
 }
 
-timer += 1;
+
+
+// If we reach the end screen...
+if room != rm_final {
+	timer += 1;
+}
 
 
 

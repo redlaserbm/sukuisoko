@@ -4,6 +4,9 @@
 accept_key = keyboard_check_pressed(ord("Z"));
 skip_key = false;
 
+if accept_key and timer > 2 {
+	audio_play_sound(snd_cursor,0,false,0.25);	
+}
 var _textbox_x = camera_get_view_x(view_camera[0]);
 var _textbox_y = camera_get_view_y(view_camera[0]);
 
@@ -11,6 +14,7 @@ var _textbox_y = camera_get_view_y(view_camera[0]);
 if !setup {
 	setup = true;
 	
+	draw_set_font(fnt_terminus);
 	draw_set_font(fnt_terminus);
 	
 	// When we set a point to draw text from, we will be setting the TOP-LEFT most point of that text

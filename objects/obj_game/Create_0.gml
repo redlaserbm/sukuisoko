@@ -23,5 +23,5 @@ bg_new = noone;
 bg_music = noone;
 init_setup = false;
 
-alarm[0] = 60;
+alarm[0] = 5;
 timer = 0;
