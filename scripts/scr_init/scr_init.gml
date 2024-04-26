@@ -4,7 +4,7 @@ speaker = ds_map_create();
 ds_map_add(speaker, spr_squish, "squish");
 
 // Set loop points for music tracks as deemed necessary
-audio_sound_loop_start(snd_think, 21.333);
+// audio_sound_loop_start(snd_think, 21.333);
 audio_sound_loop_start(snd_excel, 8.005);
 audio_sound_loop_start(snd_tyler, 18.000);
 

@@ -106,7 +106,7 @@ if room != rm_final {
 	timer += 1;
 }
 
-if keyboard_check_pressed(ord("T")) and alarm[0] < 0 {
+if keyboard_check_pressed(ord("T")) and alarm[0] < 0 and false {
 	soundtrack_ind += 1;
 	if soundtrack_ind >= array_length(soundtrack) {
 		soundtrack_ind = 0;	
