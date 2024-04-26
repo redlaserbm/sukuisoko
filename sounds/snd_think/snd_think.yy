@@ -6,10 +6,10 @@
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "bitRate":512,
   "compression":0,
   "conversionMode":0,
-  "duration":42.710205,
+  "duration":160.0,
   "name":"snd_think",
   "parent":{
     "name":"Sounds",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_think.mp3",
+  "soundFile":"snd_think.wav",
   "type":1,
-  "volume":1.0,
+  "volume":0.5,
 }
