@@ -25,3 +25,6 @@ init_setup = false;
 
 alarm[0] = 5;
 timer = 0;
+
+soundtrack = [snd_think, snd_fast, snd_tyler];
+soundtrack_ind = 0;
